@@ -13,12 +13,17 @@ https://docs.djangoproject.com/en/4.0/ref/settings/
 from pathlib import Path
 import environ
 import os
+from django.urls import reverse_lazy
 
 
 env = environ.Env()
 environ.Env.read_env()
 
 EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+
+ABSOLUTE_URL_OVERRIDES={
+    'auth.user': lambda u:reverse_lazy('user_detail', args=[u.username])
+}
 
 # EMAIL_HOST = 'smtp.gmail.com'
 # EMAIL_HOST_USER = env('EMAIL_HOST_USER')
